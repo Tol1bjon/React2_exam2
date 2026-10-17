@@ -7,7 +7,7 @@ import { editUserRedux } from '../Store/Redux';
 
 const EditDialog = ({ user, close }) => {
     const dispatch = useDispatch()
-    const { register, handleSubmit, reset } = useForm({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
             resolver: zodResolver(Schemas),
             defaultValues: {
                 name: user?.name,
@@ -36,10 +36,15 @@ const EditDialog = ({ user, close }) => {
             <form style={{display: "flex", flexDirection: "column", gap: "10px"}} key={user?.id} onSubmit={handleSubmit(onsubmit)}>
                 <h1>EDIT USER</h1>
                 <input style={{padding: "10px", borderRadius: "10px", outline: "none", border: "1px solid black"}} {...register("name")} type="text" placeholder='Name' />
+                {errors.name && <p style={{color: "red", fontSize: "14px", fontWeight: "bold"}}>{errors.name.message}</p>}
                 <input style={{padding: "10px", borderRadius: "10px", outline: "none", border: "1px solid black"}} {...register("avatar")} type="text" placeholder='Avatar' />
+                {errors.avatar && <p style={{color: "red", fontSize: "14px", fontWeight: "bold"}}>{errors.avatar.message}</p>}
                 <input style={{padding: "10px", borderRadius: "10px", outline: "none", border: "1px solid black"}} {...register("age")} type="number" placeholder='Age' />
+                {errors.age && <p style={{color: "red", fontSize: "14px", fontWeight: "bold"}}>{errors.age.message}</p>}
                 <input style={{padding: "10px", borderRadius: "10px", outline: "none", border: "1px solid black"}} {...register("email")} type="text" placeholder='Email' />
+                {errors.email && <p style={{color: "red", fontSize: "14px", fontWeight: "bold"}}>{errors.email.message}</p>}
                 <input style={{padding: "10px", borderRadius: "10px", outline: "none", border: "1px solid black"}} {...register("job")} type="text" placeholder='Job' />
+                {errors.job && <p style={{color: "red", fontSize: "14px", fontWeight: "bold"}}>{errors.job.message}</p>}
                 <select style={{padding: "10px",}} {...register("status")}>
                     <option value={"true"}>ACTIVE</option>
                     <option value={"false"}>INACTIVE</option>
